@@ -6,3 +6,69 @@ body {
   background-color: #191920;
   color: #fff;
 }
+
+.dots {
+  width: 56px;
+  height: 26.9px;
+  background: radial-gradient(circle closest-side,#818cf8 90%,#0000) 0%   50%,
+         radial-gradient(circle closest-side,#818cf8 90%,#0000) 50%  50%,
+         radial-gradient(circle closest-side,#818cf8 90%,#0000) 100% 50%;
+  background-size: calc(100%/3) 13.4px;
+  background-repeat: no-repeat;
+  animation: dots-7ar3yq 1s infinite linear;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+   width: 8px;
+ }
+ 
+ .scrollbar-custom::-webkit-scrollbar-track {
+   background: #808080;
+ }
+ 
+.scrollbar-custom::-webkit-scrollbar-thumb {
+   background-color: #e3e3e3;
+   transition: 0.3s;
+ }
+ 
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+   background: #555;
+ }
+
+.apexcharts-legend-text {
+  color: #fff!important;
+ }
+
+#chartContainer .apexcharts-tooltip {
+  color: #000000!important;
+}
+
+.apexcharts-tooltip {
+  border-radius: 12px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  color: #000!important;
+}
+
+.apexcharts-tooltip-text-value {
+   font-weight: normal;
+   font-family: Lato;
+   font-size: 12px;
+}
+
+@keyframes dots-7ar3yq {
+  20% {
+     background-position: 0%   0%, 50%  50%,100%  50%;
+  }
+
+  40% {
+     background-position: 0% 100%, 50%   0%,100%  50%;
+  }
+
+  60% {
+     background-position: 0%  50%, 50% 100%,100%   0%;
+  }
+
+  80% {
+     background-position: 0%  50%, 50%  50%,100% 100%;
+  }
+}
