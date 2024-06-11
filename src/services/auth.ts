@@ -68,7 +68,7 @@ export function Auth() {
     
           const formEntries = Object.fromEntries(formData.entries());
           const {email, password } = formEntries as { [key: string]: string };
-          setIsLoading(false);
+          setIsLoading(true);
 
           await signInWithEmailAndPassword(auth, email, password);
     

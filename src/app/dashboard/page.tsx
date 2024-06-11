@@ -16,7 +16,7 @@ export default function Dashboard() {
     });
 
     return (
-        <div className="flex lg:p-[20px] lg:gap-[50px] sm: gap-[20px] sm: p-[10px]">
+        <div className="flex lg:flex-row lg:p-[20px] lg:gap-[50px] sm: gap-[20px] sm: p-[10px] sm: flex-col">
             <SideBar />
             <div className="flex-[1] bg-[#303030] p-5 rounded-[20px] w-full lg:h-screen sm: h-100vh">
                 <h1 className="font-bold lg:text-3xl sm: text-xl">Total de transações</h1>

@@ -9,7 +9,7 @@ import { formatPrice } from "@/utils/formatNumber";
 import { FaCalendarAlt, FaComment, FaTrashAlt } from "react-icons/fa";
 
 export default function Expenses() {
-    const { currentUser, deleteExpense, isLoading, handleAddExpenseToDataBase } = useUserStore();
+    const { currentUser, deleteExpense, loadData, handleAddExpenseToDataBase } = useUserStore();
     const { totalExpense } = SalaryBalance();
 
     const handleDeleteExpense = async (expense:null | any) => {
@@ -18,7 +18,7 @@ export default function Expenses() {
     };
 
     return (
-        <div className="flex lg:p-[20px] lg:gap-[50px] sm: gap-[20px] sm: p-[10px]">
+        <div className="flex lg:flex-row lg:p-[20px] lg:gap-[50px] sm: gap-[20px] sm: p-[10px] sm: flex-col">
             <SideBar />
             <div className="flex-[1] bg-[#303030] p-5 rounded-[20px] w-full lg:h-screen sm: h-100vh">
                 <h1 className="font-bold lg:text-3xl sm: text-xl">Despesas</h1>
@@ -26,12 +26,12 @@ export default function Expenses() {
                     <h2 className="font-bold text-center lg:text-2xl sm: text-xl">Total de despesas: <span className="text-red-500">{formatPrice(totalExpense)}</span></h2>
                 </div>
                 <div className="mt-7 grid lg:grid-cols-2 sm: grid-cols-1">
-                    <form onSubmit={handleAddExpenseToDataBase} className="max-w-96 grid grid-cols-1 gap-5">
+                    <form onSubmit={handleAddExpenseToDataBase} className="lg:max-w-96 grid grid-cols-1 gap-5 sm: w-full">
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="title" type="text" placeholder="Titulo da despesa" />
-                        <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="value" type="tel" placeholder="Valor da despesa" />
+                        <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="value" type="number" placeholder="Valor da despesa" />
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="date" type="date" placeholder="Data da saída" />
                         <textarea className="resize-none border p-3 bg-transparent border-[#595858] h-[150px] w-full outline-none" name="comment" placeholder="Comentário" />
-                        <button className="mb-5 h-[50px] w-full rounded-[20px] bg-indigo-500 border-none hover:bg-indigo-700 transition-colors font-bold">{isLoading ? 
+                        <button className="mb-5 h-[50px] w-full rounded-[20px] bg-indigo-500 border-none hover:bg-indigo-700 transition-colors font-bold">{loadData ? 
                             <div role="status" className="flex justify-center items-center m-auto">
                                 <svg aria-hidden="true" className="m-auto inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-indigo-400" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -43,7 +43,7 @@ export default function Expenses() {
                         </button>
                     </form>
                     <div className="flex flex-col gap-5 overflow-y-auto h-[370px] scrollbar-custom">
-                    {isLoading ? 'carregando...' : currentUser?.expenses.map((expense, index) => (
+                    {loadData ? 'carregando...' : currentUser?.expenses === undefined ? 'carregando...' : currentUser?.expenses.map((expense, index) => (
                         <div key={index} className="relative flex justify-between items-center bg-[#373737] rounded-[10px] p-4 w-full">
                             <div>
                                 <div className="flex items-center gap-3">

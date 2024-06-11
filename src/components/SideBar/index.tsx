@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import userImg from '../../../public/images/userImg.jpg';
-import { FaChartLine, FaCreditCard, FaSignOutAlt } from "react-icons/fa";
+import { FaChartLine, FaSignOutAlt } from "react-icons/fa";
 import Link from "next/link";
 import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from "react-icons/fa6";
 import { useEffect } from "react";
@@ -34,9 +34,9 @@ export function SideBar() {
       }, [fetchUserData, router]);
 
     return (
-        <div className="flex-1 bg-[#303030] rounded-[20px] h-screen w-full lg:max-w-[200px] sm: max-w-[70px]">
-            <div className="flex flex-col h-screen justify-between">
-                <div>
+        <div className="flex-1 bg-[#303030] rounded-[20px] h-screen w-full lg:max-w-[200px]">
+            <div className="flex lg:flex-col lg:h-screen justify-between sm: flex-row w-full h-40">
+                <div className="grid lg:grid-cols-1 sm: grid-cols-2 items-center">
                     <div className="flex items-center gap-5 p-5">
                         <Image className="rounded-full flex-shrink-0 aspect-square object-cover" objectFit="cover" width={60} height={60} src={currentUser?.avatar || userImg} alt="foto do usuário logado"/>
                         <div className="lg:block sm: hidden">
@@ -45,9 +45,9 @@ export function SideBar() {
                         </div>
                     </div>
         
-                    <div className="p-5 mt-[60px] grid grid-cols-1 gap-5">
+                    <div className="p-5 lg:mt-[60px] grid items-center sm: grid-cols-3 sm: mt-[0] gap-5 lg:grid-cols-1">
                         <Link href="/dashboard" className="flex items-center gap-3">
-                            <FaChartLine className="text-indigo-500 w-[20px] h-[20px]" />
+                            <FaChartLine className="flex-shrink-0 text-indigo-500 w-[20px] h-[20px]" />
                             <h6 className="font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Painel</h6>
                         </Link>
                         {/* <Link href="#" className="flex items-center gap-3">
@@ -55,11 +55,11 @@ export function SideBar() {
                             <h6 className="font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Transações</h6>
                         </Link> */}
                         <Link href="/income" className="flex items-center gap-3">
-                            <FaMoneyBillTrendUp className="text-indigo-500 w-[20px] h-[20px]" />
+                            <FaMoneyBillTrendUp className="flex-shrink-0 text-indigo-500 w-[20px] h-[20px]" />
                             <h6 className="font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Rendimentos</h6>
                         </Link>
                         <Link href="/expenses" className="flex items-center gap-3">
-                            <FaMoneyBillTransfer className="text-indigo-500 w-[20px] h-[20px]" />
+                            <FaMoneyBillTransfer className="flex-shrink-0 text-indigo-500 w-[20px] h-[20px]" />
                             <h6 className="font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Despesas</h6>
                         </Link>
                     </div>

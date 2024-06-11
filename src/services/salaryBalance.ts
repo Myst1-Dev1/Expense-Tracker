@@ -17,57 +17,50 @@ export function SalaryBalance() {
 
   const balance = totalSalary - totalExpense;
 
-    const incomesGraphValue = incomes.map(income => income.value);
-    const expensesGraphValue = expenses.map(expense => expense.value);
+   
+  const months = [
+    'Jan',
+    'Fev',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Set',
+    'Out',
+    'Nov',
+    'Dez'
+];
 
-    const dateIncomes = incomes.map(income => income.date);
-    const dateExpenses = expenses.map(expense => expense.date);
+const convertDateToMonthName = (dateString: string | any) => {
+    const date = new Date(dateString);
+    const monthIndex = date.getMonth();
+    return months[monthIndex];
+};
 
-    const months = [
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
-        'Julho',
-        'Agosto',
-        'Setembro',
-        'Outubro',
-        'Novembro',
-        'Dezembro'
-      ];
-      
-      const convertDateToMonthName = (dateString: string | any) => {
-        const date = new Date(dateString);
-        const monthIndex = date.getMonth();
-        return months[monthIndex];
-      };
-      
-      const convertedMonthsIncome = dateIncomes.map(convertDateToMonthName);
-      const convertedMonthsExpense = dateExpenses.map(convertDateToMonthName);
-      
-      const allMonths = [...convertedMonthsIncome, ...convertedMonthsExpense];
-      const totalMonths = new Set(allMonths);
-      
-      const monthNames = Array.from(totalMonths).sort((a, b) => {
-        const months = [
-          'Janeiro',
-          'Fevereiro',
-          'Março',
-          'Abril',
-          'Maio',
-          'Junho',
-          'Julho',
-          'Agosto',
-          'Setembro',
-          'Outubro',
-          'Novembro',
-          'Dezembro'
-        ];
-      
-        return months.indexOf(a) - months.indexOf(b);
-      });
+const incomesByMonth = months.reduce((acc:any, month) => {
+    acc[month] = 0;
+    return acc;
+}, {});
+
+const expensesByMonth = months.reduce((acc:any, month) => {
+    acc[month] = 0;
+    return acc;
+}, {});
+
+incomes.forEach(income => {
+    const monthName = convertDateToMonthName(income.date);
+    incomesByMonth[monthName] += parseFloat(income.value);
+});
+
+expenses.forEach(expense => {
+    const monthName = convertDateToMonthName(expense.date);
+    expensesByMonth[monthName] += parseFloat(expense.value);
+});
+
+const incomesGraphValue = months.map(month => incomesByMonth[month]);
+const expensesGraphValue = months.map(month => expensesByMonth[month]);
 
   return {
     recentHistoric,
@@ -76,10 +69,9 @@ export function SalaryBalance() {
     balance,
     incomes,
     expenses,
-    monthNames,
+    monthNames: months,
     incomesGraphValue,
     expensesGraphValue,
-    totalMonths,
     months,
   }
 }

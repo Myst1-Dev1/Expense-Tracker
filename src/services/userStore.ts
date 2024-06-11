@@ -22,6 +22,7 @@ type LoggedUserData = {
 type UserStore = {
     currentUser: LoggedUserData | null;
     isLoading: boolean;
+    loadData:boolean;
     fetchUserData: (uid: string) => Promise<void>;
     handleAddExpenseToDataBase:(e:FormData | any) => Promise<void>;
     handleAddIncomeToDataBase:(e:FormData | any) => Promise<void>;
@@ -32,6 +33,7 @@ type UserStore = {
 export const useUserStore = create<UserStore>((set) => ({
     currentUser: null,
     isLoading: false,
+    loadData:false,
     fetchUserData: async (uid: string) => {
         set({ isLoading: true });
         try {
@@ -49,7 +51,7 @@ export const useUserStore = create<UserStore>((set) => ({
     },
     handleAddIncomeToDataBase: async(e:FormEvent | any) => {
         e.preventDefault();
-        set({ isLoading: true });
+        set({ loadData: true });
 
         const formData = new FormData(e.target);
         const { title, value, date, comment } = Object.fromEntries(formData);
@@ -69,14 +71,14 @@ export const useUserStore = create<UserStore>((set) => ({
             });
         } catch (error) {
             console.error("Error updating document: ", error);
-            set({ isLoading: false });
+            set({ loadData: false });
         } finally {
-            set({ isLoading: false });
+            set({ loadData: false });
         }
     },
     handleAddExpenseToDataBase: async(e:FormEvent | any) => {
         e.preventDefault();
-        set({ isLoading: true });
+        set({ loadData: true });
 
         const formData = new FormData(e.target);
         const { title, value, date, comment } = Object.fromEntries(formData);
@@ -96,13 +98,13 @@ export const useUserStore = create<UserStore>((set) => ({
             });
         } catch (error) {
             console.error("Error updating document: ", error);
-            set({ isLoading: false });
+            set({ loadData: false });
         } finally {
-            set({ isLoading: false });
+            set({ loadData: false });
         }
     },
     deleteIncome: async (uid: string, incomeToDelete: Income) => {
-        set({ isLoading: true });
+        set({ loadData: true });
         try {
             const userDocRef = doc(db, 'users', uid);
             const userDoc = await getDoc(userDocRef);
@@ -115,15 +117,15 @@ export const useUserStore = create<UserStore>((set) => ({
                 set({ currentUser: { ...userData, incomes: updatedIncomes }, isLoading: false });
             } else {
                 console.log('Usuário não encontrado');
-                set({ isLoading: false });
+                set({ loadData: false });
             }
         } catch (error) {
             console.log(error);
-            set({ isLoading: false });
+            set({ loadData: false });
         }
     },
     deleteExpense: async (uid: string, expenseToDelete: Income) => {
-        set({ isLoading: true });
+        set({ loadData: true });
         try {
             const userDocRef = doc(db, 'users', uid);
             const userDoc = await getDoc(userDocRef);
@@ -133,14 +135,14 @@ export const useUserStore = create<UserStore>((set) => ({
                     expense => !(expense.title === expenseToDelete.title && expense.value === expenseToDelete.value && expense.date === expenseToDelete.date && expense.comment === expenseToDelete.comment && expense.type === expenseToDelete.type)
                 );
                 await updateDoc(userDocRef, { expenses: updatedIncomes });
-                set({ currentUser: { ...userData, expenses: updatedIncomes }, isLoading: false });
+                set({ currentUser: { ...userData, expenses: updatedIncomes }, loadData: false });
             } else {
                 console.log('Usuário não encontrado');
-                set({ isLoading: false });
+                set({ loadData: false });
             }
         } catch (error) {
             console.log(error);
-            set({ isLoading: false });
+            set({ loadData: false });
         }
     },
 }));
