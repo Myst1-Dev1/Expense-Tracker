@@ -23,11 +23,11 @@ body {
  }
  
  .scrollbar-custom::-webkit-scrollbar-track {
-   background: #808080;
+   background: transparent;
  }
  
 .scrollbar-custom::-webkit-scrollbar-thumb {
-   background-color: #e3e3e3;
+   background-color: #474747;
    transition: 0.3s;
  }
  
@@ -39,9 +39,9 @@ body {
   color: #fff!important;
  }
 
-#chartContainer .apexcharts-tooltip {
+/* #chartContainer .apexcharts-tooltip {
   color: #000000!important;
-}
+} */
 
 .apexcharts-tooltip {
   border-radius: 12px;

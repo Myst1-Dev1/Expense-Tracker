@@ -49,6 +49,7 @@ export function SalaryBalance() {
       
       const allMonths = [...convertedMonthsIncome, ...convertedMonthsExpense];
       const totalMonths = new Set(allMonths);
+      
       const monthNames = Array.from(totalMonths).sort((a, b) => {
         const months = [
           'Janeiro',
@@ -77,6 +78,8 @@ export function SalaryBalance() {
     expenses,
     monthNames,
     incomesGraphValue,
-    expensesGraphValue
+    expensesGraphValue,
+    totalMonths,
+    months,
   }
 }

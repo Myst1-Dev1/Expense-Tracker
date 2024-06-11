@@ -43,8 +43,8 @@ export default function Expenses() {
                         </button>
                     </form>
                     <div className="flex flex-col gap-5 overflow-y-auto h-[370px] scrollbar-custom">
-                    {isLoading ? 'carregando...' : currentUser?.expenses.map(expense => (
-                        <div key={expense.title} className="relative flex justify-between items-center bg-[#373737] rounded-[10px] p-4 w-full">
+                    {isLoading ? 'carregando...' : currentUser?.expenses.map((expense, index) => (
+                        <div key={index} className="relative flex justify-between items-center bg-[#373737] rounded-[10px] p-4 w-full">
                             <div>
                                 <div className="flex items-center gap-3">
                                     <div className="lg:w-[20px] lg:h-[20px] rounded-full bg-red-500 sm: w-[10px] h-[10px]"></div>

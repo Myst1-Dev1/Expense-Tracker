@@ -10,9 +10,12 @@ import { auth } from "@/services/firebase";
 import { useUserStore } from "@/services/userStore";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { SalaryBalance } from "@/services/salaryBalance";
+import { formatPrice } from "@/utils/formatNumber";
 
 export function SideBar() {
     const { fetchUserData, currentUser } = useUserStore();
+    const { balance } = SalaryBalance();
 
     const router = useRouter();
 
@@ -38,7 +41,7 @@ export function SideBar() {
                         <Image className="rounded-full flex-shrink-0 aspect-square object-cover" objectFit="cover" width={60} height={60} src={currentUser?.avatar || userImg} alt="foto do usuário logado"/>
                         <div className="lg:block sm: hidden">
                             <h2 className="text-indigo-500 font-bold text-sm mb-2">{currentUser?.nome}</h2>
-                            <h3>R$:0,00</h3>
+                            <h3>{formatPrice(balance)}</h3>
                         </div>
                     </div>
         
@@ -47,10 +50,10 @@ export function SideBar() {
                             <FaChartLine className="text-indigo-500 w-[20px] h-[20px]" />
                             <h6 className="font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Painel</h6>
                         </Link>
-                        <Link href="#" className="flex items-center gap-3">
+                        {/* <Link href="#" className="flex items-center gap-3">
                             <FaCreditCard className="text-indigo-500 w-[20px] h-[20px]" />
                             <h6 className="font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Transações</h6>
-                        </Link>
+                        </Link> */}
                         <Link href="/income" className="flex items-center gap-3">
                             <FaMoneyBillTrendUp className="text-indigo-500 w-[20px] h-[20px]" />
                             <h6 className="font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Rendimentos</h6>

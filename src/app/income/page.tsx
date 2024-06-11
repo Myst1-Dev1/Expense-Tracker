@@ -43,8 +43,8 @@ export default function Income() {
                         </button>
                     </form>
                     <div className="flex flex-col gap-5 overflow-y-auto h-[370px] scrollbar-custom">
-                    {isLoading ? 'carregando...' : currentUser?.incomes.map(income => (
-                        <div key={income.title} className="relative flex justify-between items-center bg-[#373737] rounded-[10px] p-4 w-full">
+                    {isLoading ? 'carregando...' : currentUser?.incomes.map((income, index) => (
+                        <div key={index} className="relative flex justify-between items-center bg-[#373737] rounded-[10px] p-4 w-full">
                             <div>
                                 <div className="flex items-center gap-3">
                                     <div className="lg:w-[20px] lg:h-[20px] rounded-full bg-lime-500 sm: w-[10px] h-[10px]"></div>
@@ -60,7 +60,7 @@ export default function Income() {
                                         <h6 className="text-sm text-indigo-400 font-bold lg:text-sm sm: text-[9px]">{formatData(income.date)}</h6>
                                     </div>
                                     <div className="flex items-center gap-1">
-                                        <FaComment className="text-indigo-400 lg:text-sm sm: text-[9px]" />
+                                        <FaComment className="flex-shrink-0 text-indigo-400 lg:text-sm sm: text-[9px]" />
                                         <h6 className="text-sm text-indigo-400 font-bold lg:text-sm sm: text-[9px]">{income.comment}</h6>
                                     </div>
                                 </div>
