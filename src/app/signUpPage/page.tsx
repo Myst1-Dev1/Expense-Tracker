@@ -16,7 +16,7 @@ export default function SignUpPage() {
         <form onSubmit={createUser} className="mt-5 flex flex-col justify-center items-center gap-6">
           <div className='w-full'>
             <div className='flex justify-between items-center'>
-              <Image className='rounded-full' height={60} width={60} src={avatar.url || uploadImage} alt='imagem de upload' />
+              <Image className='rounded-full aspect-square object-cover' height={60} width={60} src={avatar.url || uploadImage} alt='imagem de upload' />
               <label htmlFor="file" className='cursor-pointer'><FaUpload /></label>
             </div>
             <input type="file" name='file' id='file' className='hidden' onChange={handleAvatar} />

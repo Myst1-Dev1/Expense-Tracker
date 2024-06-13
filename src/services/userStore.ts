@@ -1,7 +1,6 @@
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { create } from 'zustand';
-import { auth, db } from '@/services/firebase';
-import { FormEvent } from 'react';
+import { db } from '@/services/firebase';
 
 type Income = {
     title: string;
@@ -22,18 +21,14 @@ type LoggedUserData = {
 type UserStore = {
     currentUser: LoggedUserData | null;
     isLoading: boolean;
-    loadData:boolean;
     fetchUserData: (uid: string) => Promise<void>;
-    handleAddExpenseToDataBase:(e:FormData | any) => Promise<void>;
-    handleAddIncomeToDataBase:(e:FormData | any) => Promise<void>;
     deleteIncome: (uid: string, income: Income) => Promise<void>;
     deleteExpense: (uid: string, income: Income) => Promise<void>;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
     currentUser: null,
-    isLoading: false,
-    loadData:false,
+    isLoading:false,
     fetchUserData: async (uid: string) => {
         set({ isLoading: true });
         try {
@@ -49,62 +44,8 @@ export const useUserStore = create<UserStore>((set) => ({
             set({ isLoading: false });
         }
     },
-    handleAddIncomeToDataBase: async(e:FormEvent | any) => {
-        e.preventDefault();
-        set({ loadData: true });
-
-        const formData = new FormData(e.target);
-        const { title, value, date, comment } = Object.fromEntries(formData);
-
-        const income = {
-            title,
-            value,
-            date,
-            comment,
-            type:'income'
-        };
-
-        try {
-            const userDocRef = doc(db, 'users', auth.currentUser!.uid);
-            await updateDoc(userDocRef, {
-                incomes: arrayUnion(income)
-            });
-        } catch (error) {
-            console.error("Error updating document: ", error);
-            set({ loadData: false });
-        } finally {
-            set({ loadData: false });
-        }
-    },
-    handleAddExpenseToDataBase: async(e:FormEvent | any) => {
-        e.preventDefault();
-        set({ loadData: true });
-
-        const formData = new FormData(e.target);
-        const { title, value, date, comment } = Object.fromEntries(formData);
-
-        const expenses = {
-            title,
-            value,
-            date,
-            comment,
-            type:'expense'
-        };
-
-        try {
-            const userDocRef = doc(db, 'users', auth.currentUser!.uid);
-            await updateDoc(userDocRef, {
-                expenses: arrayUnion(expenses)
-            });
-        } catch (error) {
-            console.error("Error updating document: ", error);
-            set({ loadData: false });
-        } finally {
-            set({ loadData: false });
-        }
-    },
     deleteIncome: async (uid: string, incomeToDelete: Income) => {
-        set({ loadData: true });
+        set({ isLoading: true });
         try {
             const userDocRef = doc(db, 'users', uid);
             const userDoc = await getDoc(userDocRef);
@@ -117,15 +58,17 @@ export const useUserStore = create<UserStore>((set) => ({
                 set({ currentUser: { ...userData, incomes: updatedIncomes }, isLoading: false });
             } else {
                 console.log('Usuário não encontrado');
-                set({ loadData: false });
+                set({ isLoading: false });
             }
         } catch (error) {
             console.log(error);
-            set({ loadData: false });
+            set({ isLoading: false });
+        }finally {
+            set({ isLoading: false });
         }
     },
     deleteExpense: async (uid: string, expenseToDelete: Income) => {
-        set({ loadData: true });
+        set({ isLoading: true });
         try {
             const userDocRef = doc(db, 'users', uid);
             const userDoc = await getDoc(userDocRef);
@@ -135,14 +78,16 @@ export const useUserStore = create<UserStore>((set) => ({
                     expense => !(expense.title === expenseToDelete.title && expense.value === expenseToDelete.value && expense.date === expenseToDelete.date && expense.comment === expenseToDelete.comment && expense.type === expenseToDelete.type)
                 );
                 await updateDoc(userDocRef, { expenses: updatedIncomes });
-                set({ currentUser: { ...userData, expenses: updatedIncomes }, loadData: false });
+                set({ currentUser: { ...userData, expenses: updatedIncomes }, isLoading: false });
             } else {
                 console.log('Usuário não encontrado');
-                set({ loadData: false });
+                set({ isLoading: false });
             }
         } catch (error) {
             console.log(error);
-            set({ loadData: false });
+            set({ isLoading: false });
+        }finally {
+            set({ isLoading: false });
         }
     },
 }));
