@@ -23,9 +23,7 @@ export default async function Expenses() {
             <div className="flex-[1] bg-[#303030] p-5 rounded-[20px] w-full lg:h-screen sm: h-100vh">
                 <h1 className="font-bold lg:text-3xl sm: text-xl">Despesas</h1>
                 <div className="mt-5 bg-[#373737] w-full p-4 rounded-[10px]">
-                <h2 className="font-bold text-center lg:text-2xl sm: text-sm">Total de despesas:&nbsp;  
-                <Total salaryName="expenses" />
-            </h2>
+                    <Total salaryName='expenses' title="despesas" />
                 </div>
                 <div className="mt-7 grid lg:grid-cols-2 sm: grid-cols-1">
                     <form action={addExpenseAction} className="lg:max-w-96 grid grid-cols-1 gap-5 sm: w-full">
