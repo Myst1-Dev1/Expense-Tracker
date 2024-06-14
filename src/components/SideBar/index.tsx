@@ -12,6 +12,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { SalaryBalance } from "@/services/salaryBalance";
 import { formatPrice } from "@/utils/formatNumber";
+import { destroyCookie } from "nookies";
 
 export function SideBar() {
     const { fetchUserData, currentUser } = useUserStore();
@@ -33,9 +34,14 @@ export function SideBar() {
           };
       }, [fetchUserData, router]);
 
+      function handleSignOut() {
+        auth.signOut();
+        destroyCookie(undefined,'userUid');
+      }
+
     return (
         <div className="flex-1 bg-[#303030] rounded-[20px] h-screen w-full lg:max-w-[200px]">
-            <div className="flex lg:flex-col lg:h-screen justify-between sm: flex-row w-full h-40">
+            <div className="flex lg:flex-col lg:h-screen justify-between sm: flex-row w-full h-30">
                 <div className="grid lg:grid-cols-1 sm: grid-cols-2 items-center">
                     <div className="flex items-center gap-5 p-5">
                         <Image className="rounded-full flex-shrink-0 aspect-square object-cover" objectFit="cover" width={60} height={60} src={currentUser?.avatar || userImg} alt="foto do usuário logado"/>
@@ -64,7 +70,7 @@ export function SideBar() {
                         </Link>
                     </div>
                 </div>
-                <div className="flex items-center gap-3 p-5 cursor-pointer" onClick={() => auth.signOut()}>
+                <div className="flex items-center gap-3 p-5 cursor-pointer" onClick={handleSignOut}>
                     <FaSignOutAlt className="text-indigo-500 w-[20px] h-[20px]" />
                     <h6 className="cursor-pointer font-bold hover:text-indigo-700 transition-colors lg:block sm: hidden">Sair</h6>
                 </div>

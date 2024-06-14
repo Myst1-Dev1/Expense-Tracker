@@ -23,7 +23,6 @@ export async function handleAddExpenseToDataBase(id:string,formData: FormData) {
         await updateDoc(userDocRef, {
             expenses: arrayUnion(expenses)
         });
-        console.log('deu certo');
     } catch (error) {
         console.error("Error updating document: ", error);
     }
@@ -43,6 +42,8 @@ export async function handleAddIncomeToDataBase(id:string, formData: FormData) {
         comment,
         type:'income'
     };
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     try {
         const userDocRef = doc(db, 'users', id);

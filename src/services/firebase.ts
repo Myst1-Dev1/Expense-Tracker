@@ -4,7 +4,7 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDtPP36LIQFc6T6Nu93S7v8rkQGmr3j5J8",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_KEY,
   authDomain: "expense-tracker-51d28.firebaseapp.com",
   projectId: "expense-tracker-51d28",
   storageBucket: "expense-tracker-51d28.appspot.com",

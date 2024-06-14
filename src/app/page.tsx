@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { Auth } from '@/services/auth';
+import { Loading } from "@/components/Loading";
 
 export default function Home() {
-  const { handleLogin } = Auth();
+  const { handleLogin, error, isLoading } = Auth();
 
   return (
     <div className="h-screen w-full flex justify-center items-center">
@@ -20,9 +21,12 @@ export default function Home() {
             <input className="bg-transparent border-none outline-none" name='password' type="password" placeholder="Senha" required/>
             <FaLock className='text-indigo-500' />
           </div>
+          {error && <span className='text-red-600 font-bold'>Email ou senha incorretos</span>}
           <span className='m-auto'>Não possui uma conta? <Link href="/signUpPage" className='text-indigo-500 hover:text-indigo-700 transition-colors'>Cadastro</Link></span>
           <button type='submit' className='border-none bg-indigo-600 w-full h-[50px] text-xl hover:bg-indigo-700 transition-all font-bold'>
-            Entrar
+            {isLoading ?
+                <Loading />
+            :  'Entrar'}
           </button>
         </form>
       </div>
