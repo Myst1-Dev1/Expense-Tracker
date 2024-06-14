@@ -29,7 +29,8 @@ export default async function Income() {
                     <form action={addIncomeAction} className="lg:max-w-96 grid grid-cols-1 gap-5 sm: w-full">
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" type="text" name="title" placeholder="Titulo do salário" required />
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" type="number" name="value" placeholder="Valor do salário" required />
-                        <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="date" type="date" placeholder="Data do recebimento" required/>
+                        <label htmlFor="date" className="lg:hidden sm: block">Data do recebimento (dd/mm/aaaa)</label>
+                        <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="date" type="date" id="date" required />
                         <textarea className="resize-none border p-3 bg-transparent border-[#595858] h-[150px] w-full outline-none" name="comment" placeholder="Comentário" required />
                         <FormActionButton name="income" />
                     </form>

@@ -43,8 +43,6 @@ export async function handleAddIncomeToDataBase(id:string, formData: FormData) {
         type:'income'
     };
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
     try {
         const userDocRef = doc(db, 'users', id);
         await updateDoc(userDocRef, {

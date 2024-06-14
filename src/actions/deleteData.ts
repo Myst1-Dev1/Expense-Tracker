@@ -35,6 +35,7 @@ export async function deleteIncome(uid: string, incomeToDelete: Income) {
             console.log('Usuário não encontrado');
         }
     } catch (error) {
+        console.log(error);
     }
 
     revalidatePath('/income');
