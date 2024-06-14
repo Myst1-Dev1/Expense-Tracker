@@ -64,17 +64,32 @@ input[type=number]::-webkit-inner-spin-button {
    font-size: 12px;
 }
 
-/* input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+input[type="date"] {
+  appearance: none; /* Remove o estilo padrão */
+  -webkit-appearance: none; /* Remove o estilo padrão no Webkit */
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16"> <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-1h12V3a1 1 0 0 0-1-1h-1v.5a.5.5 0 0 1-1 0V2h-8v.5a.5.5 0 0 1-1 0V2H2a1 1 0 0 0-1 1v1z"/> </svg>') no-repeat right 10px center;
+  background-size: 16px 16px;
+  border: 1px solid #595858;
+  padding: 10px;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  background-color: transparent;
+  color: #fff; /* Altere conforme necessário */
+  font-family: inherit; /* Mantém a fonte do pai */
 }
 
-input[type="date"]::-webkit-inner-spin-button {
-  display: none;
-}
-
+/* Remove os botões de rotação e o botão de limpeza */
+input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-clear-button {
   display: none;
-} */
+}
+
+/* Estiliza o indicador de calendário */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0; /* Torna o indicador invisível para mostrar o ícone personalizado */
+}
 
 @keyframes dots-7ar3yq {
   20% {

@@ -10,7 +10,6 @@ import { Total } from "@/components/Total";
 import { DeleteData } from "@/components/DeleteData";
 import { cookies } from "next/headers";
 import { FormActionButton } from "@/components/formActionButton";
-import { DateInput } from "@/components/DateInput";
 
 export default async function Expenses() {
     const uid:string | any = cookies().get('userUid')?.value;
@@ -30,7 +29,7 @@ export default async function Expenses() {
                     <form action={addExpenseAction} className="lg:max-w-96 grid grid-cols-1 gap-5 sm: w-full">
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="title" type="text" placeholder="Titulo da despesa" required />
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="value" type="number" placeholder="Valor da despesa" required />
-                        <DateInput />
+                        <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="date" type="date" placeholder="Data do recebimento" required/>
                         <textarea className="resize-none border p-3 bg-transparent border-[#595858] h-[150px] w-full outline-none" name="comment" placeholder="Comentário" required />
                         <FormActionButton name="expenses" />
                     </form>
@@ -49,7 +48,7 @@ export default async function Expenses() {
                                     </div>
                                     <div className="flex items-center gap-1">
                                         <FaCalendarAlt className="text-indigo-400 lg:text-sm sm: text-[9px]" />
-                                        <h6 className="text-sm text-indigo-400 font-bold lg:text-sm sm: text-[9px]">{expense.date}</h6>
+                                        <h6 className="text-sm text-indigo-400 font-bold lg:text-sm sm: text-[9px]">{formatData(expense.date)}</h6>
                                     </div>
                                     <div className="flex items-center gap-1">
                                         <FaComment className="flex-shrink-0 text-indigo-400 lg:text-sm sm: text-[9px]" />
