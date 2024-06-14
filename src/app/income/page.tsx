@@ -31,7 +31,7 @@ export default async function Income() {
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" type="number" name="value" placeholder="Valor do salário" required />
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="date" type="date" placeholder="Data do recebimento" required />
                         <textarea className="resize-none border p-3 bg-transparent border-[#595858] h-[150px] w-full outline-none" name="comment" placeholder="Comentário" required />
-                        <FormActionButton />
+                        <FormActionButton name="income" />
                     </form>
                     <div className="flex flex-col gap-5 overflow-y-auto h-[370px] scrollbar-custom">
                     {data?.incomes.map((income:any, index:any) => (

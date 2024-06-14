@@ -2,7 +2,11 @@
 
 import { useFormStatus } from "react-dom"
 
-export function FormActionButton() {
+interface FormActionButtonProps {
+    name:string
+}
+
+export function FormActionButton({name}:FormActionButtonProps) {
     const { pending } = useFormStatus();
 
     return (
@@ -16,7 +20,7 @@ export function FormActionButton() {
                         </svg>
                         <span className="sr-only">Loading...</span>
                     </div>
-                : '+ Adicionar rendimento'}
+                : `${name === 'income' ? '+ Adicionar rendimento' : '+ Adicionar despesa'}`}
             </button>
         </>
     )

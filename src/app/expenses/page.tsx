@@ -31,7 +31,7 @@ export default async function Expenses() {
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="value" type="number" placeholder="Valor da despesa" required />
                         <input className="border p-3 bg-transparent border-[#595858] h-[50px] w-full outline-none" name="date" type="date" placeholder="Data da saída" required />
                         <textarea className="resize-none border p-3 bg-transparent border-[#595858] h-[150px] w-full outline-none" name="comment" placeholder="Comentário" required />
-                        <FormActionButton />
+                        <FormActionButton name="expenses" />
                     </form>
                     <div className="flex flex-col gap-5 overflow-y-auto h-[370px] scrollbar-custom">
                     {data?.expenses.map((expense:any, index:any) => (

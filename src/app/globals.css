@@ -64,7 +64,7 @@ input[type=number]::-webkit-inner-spin-button {
    font-size: 12px;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+/* input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
@@ -74,7 +74,7 @@ input[type="date"]::-webkit-inner-spin-button {
 
 input[type="date"]::-webkit-clear-button {
   display: none;
-}
+} */
 
 @keyframes dots-7ar3yq {
   20% {
