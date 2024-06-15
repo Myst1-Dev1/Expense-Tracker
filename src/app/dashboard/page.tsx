@@ -2,6 +2,7 @@
 
 import { AnimatedNumber } from "@/components/AnimatedNumbers";
 import { Loading } from "@/components/Loading";
+import { LoadingLogic } from "@/components/Loading/loadingLogic";
 import { SideBar } from "@/components/SideBar"
 import { GraphData } from "@/services/graphData";
 import { SalaryBalance } from "@/services/salaryBalance";
@@ -12,6 +13,7 @@ import dynamic from "next/dynamic";
 export default function Dashboard() {
     const { totalExpense, totalSalary, balance, recentHistoric} = SalaryBalance();
     const { series, options } = GraphData();
+    const { loading } = LoadingLogic();
 
     const Chart = dynamic(() => import('react-apexcharts'), {
         ssr: false,
@@ -23,7 +25,7 @@ export default function Dashboard() {
             <div className="flex-[1] bg-[#303030] p-5 rounded-[20px] w-full lg:h-screen sm: h-100vh">
                 <h1 className="font-bold lg:text-3xl sm: text-xl">Total de transações</h1>
                 <div className="grid gap-8 lg:grid-cols-2  sm: grid-cols-1">
-                    {recentHistoric.length === 0 ? <Loading /> :
+                    {recentHistoric.length === 0 ? loading ? <Loading /> : 'Sem dados' :
                         <div>
                             <Chart
                                 options={options}
@@ -37,7 +39,7 @@ export default function Dashboard() {
                     <div>
                         <h2 className="text-xl font-bold mb-5">Histórico recente</h2>
                         <div className="flex flex-col overflow-y-auto h-[250px] scrollbar-custom gap-5">
-                            {recentHistoric.length === 0 ? <Loading /> : recentHistoric.map((historic, index) => (
+                            {recentHistoric.length === 0 ? loading ? <Loading /> : 'Sem dados' : recentHistoric.map((historic, index) => (
                                 <div key={index} className="p-4 bg-[#373737] w-full flex justify-between items-center rounded-[10px]">
                                     <h6 className={`${historic.type === 'expense' ? 'text-red-500' : 'text-lime-500'} font-bold sm: text-sm`}>{historic.title}</h6>
                                     <h6 className={`${historic.type === 'expense' ? 'text-red-500' : 'text-lime-500'} font-bold sm: text-sm`}>{formatPrice(Number(historic.value))}</h6>
